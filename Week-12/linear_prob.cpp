@@ -1,3 +1,4 @@
+//Program to implement Hash ADT with Linear Probing
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 10
