@@ -1,3 +1,4 @@
+//Program to implement Graph ADT with Adjacency Matrix.
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_VERTICES 5
@@ -69,7 +70,7 @@ int queue :: peek() {
     }
 }
 
-//Program to implement stack ADT using linked list
+//Header file to implement stack ADT using linked list
 class stack {
 private:
     struct node {
@@ -96,7 +97,7 @@ bool stack :: isempty() {
     return top == nullptr;
 }
 
-//Method to insert element into the stack
+//Method to insert element into the stack. Time Complexity O(1).
 char stack :: push(char element) {
     struct node* newnode = (struct node*)malloc(sizeof(struct node));
     newnode->data = element;
@@ -106,7 +107,7 @@ char stack :: push(char element) {
     return j;
 }
 
-//Method to delete the topmost element of the stack
+//Method to delete the topmost element of the stack. Time Complexity O(1).
 char stack :: pop() {
     struct node* temp = top;
     if (isempty()) {
@@ -121,7 +122,7 @@ char stack :: pop() {
     }
 }
 
-//Method to display the topmost element in stack
+//Method to display the topmost element in stack. Time Complexity O(1).
 char stack :: peek() {
     struct node* temp = top;
     char j;
@@ -134,7 +135,7 @@ char stack :: peek() {
     }
 }
 
-//Method to display the stack
+//Method to display the stack. Time Complexity O(n).
 void stack :: display() {
     struct node* temp = top;
     if (isempty()) {
@@ -148,6 +149,7 @@ void stack :: display() {
     }
 }
 
+//Graph Implementation
 class graph {
 private:
     int vertices;
@@ -180,7 +182,7 @@ bool graph::insert(int v1, int v2) {
         return false;
     }
     adj_matrix[v1 - 1][v2 - 1] = 1;
-    adj_matrix[v2 - 1][v1 - 1] = 1; // Assuming undirected graph
+    adj_matrix[v2 - 1][v1 - 1] = 1;
     return true;
 }
 
@@ -200,11 +202,11 @@ bool graph::remove(int v1, int v2) {
         return false;
     }
     adj_matrix[v1 - 1][v2 - 1] = 0;
-    adj_matrix[v2 - 1][v1 - 1] = 0; // Assuming undirected graph
+    adj_matrix[v2 - 1][v1 - 1] = 0; 
     return true;
 }
 
-// Method to display the adjacency matrix of the graph. Time Complexity O(V^2).
+// Method to display the adjacency matrix of the graph. Time Complexity O(n^2).
 void graph::display() {
     printf("Adjacency Matrix:\n");
     for (int i = 0; i < vertices; i++) {
@@ -215,7 +217,7 @@ void graph::display() {
     }
 }
 
-// Method to perform Breadth First Traversal of the graph starting from a given vertex.
+// Method to perform Breadth First Traversal of the graph starting from a given vertex. Time Complexity O(n^2).
 void graph::breadth_first(int startVertex) {
     bool visited[MAX_VERTICES] = {false};
     visited[startVertex - 1] = true;
@@ -235,7 +237,7 @@ void graph::breadth_first(int startVertex) {
     printf("\n");
 }
 
-// Method to perform Depth First Traversal of the graph starting from a given vertex.
+// Method to perform Depth First Traversal of the graph starting from a given vertex. Time Complexity O(n^2).
 void graph::depth_first(int startVertex) {
     bool visited[MAX_VERTICES] = {false};
     df_recursive(startVertex - 1, visited);
