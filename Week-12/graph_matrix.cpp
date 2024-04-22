@@ -170,39 +170,36 @@ public:
     bool search(int, int);
     bool remove(int, int);
     void display();
-    void breadth_first(int);
-    void depth_first(int);
-    void df_recursive(int, bool[]);
 };
 
 // Method to insert an edge into the graph. Time Complexity O(1).
 bool graph::insert(int v1, int v2) {
-    if (v1 - 1 < 0 || v1 - 1 >= vertices || v2 - 1 < 0 || v2 - 1 >= vertices) {
+    if (v1 < 0 || v1 >= vertices || v2 < 0 || v2 >= vertices) {
         printf("Invalid vertex indices!\n");
         return false;
     }
-    adj_matrix[v1 - 1][v2 - 1] = 1;
-    adj_matrix[v2 - 1][v1 - 1] = 1;
+    adj_matrix[v1][v2] = 1;
+    adj_matrix[v2][v1] = 1;
     return true;
 }
 
 // Method to search for an edge in the graph. Time Complexity O(1).
 bool graph::search(int v1, int v2) {
-    if (v1 - 1 < 0 || v1 - 1 >= vertices || v2 - 1 < 0 || v2 - 1 >= vertices) {
+    if (v1 < 0 || v1 >= vertices || v2 < 0 || v2 >= vertices) {
         printf("Invalid vertex indices!\n");
         return false;
     }
-    return adj_matrix[v1 - 1][v2 - 1] == 1;
+    return adj_matrix[v1][v2] == 1;
 }
 
 // Method to remove an edge from the graph. Time Complexity O(1).
 bool graph::remove(int v1, int v2) {
-    if (v1 - 1 < 0 || v1 - 1 >= vertices || v2 - 1 < 0 || v2 - 1 >= vertices) {
+    if (v1 < 0 || v1 >= vertices || v2 < 0 || v2 >= vertices) {
         printf("Invalid vertex indices!\n");
         return false;
     }
-    adj_matrix[v1 - 1][v2 - 1] = 0;
-    adj_matrix[v2 - 1][v1 - 1] = 0; 
+    adj_matrix[v1][v2] = 0;
+    adj_matrix[v2][v1] = 0; 
     return true;
 }
 
@@ -217,51 +214,13 @@ void graph::display() {
     }
 }
 
-// Method to perform Breadth First Traversal of the graph starting from a given vertex. Time Complexity O(n^2).
-void graph::breadth_first(int startVertex) {
-    bool visited[MAX_VERTICES] = {false};
-    visited[startVertex - 1] = true;
-    q.enqueue(startVertex);
-
-    while (!q.isempty()) {
-        int current = q.dequeue();
-        printf("%d ", current);
-
-        for (int i = 0; i < vertices; i++) {
-            if (adj_matrix[current - 1][i] && !visited[i]) {
-                visited[i] = true;
-                q.enqueue(i + 1);
-            }
-        }
-    }
-    printf("\n");
-}
-
-// Method to perform Depth First Traversal of the graph starting from a given vertex. Time Complexity O(n^2).
-void graph::depth_first(int startVertex) {
-    bool visited[MAX_VERTICES] = {false};
-    df_recursive(startVertex - 1, visited);
-    printf("\n");
-}
-
-// Utility function for depth_first traversal.
-void graph::df_recursive(int vertex, bool visited[]) {
-    visited[vertex] = true;
-    printf("%d ", vertex + 1);
-
-    for (int i = 0; i < vertices; i++) {
-        if (adj_matrix[vertex][i] && !visited[i]) {
-            df_recursive(i, visited);
-        }
-    }
-}
 
 int main() {
     graph g;
     int choice, v1, v2;
 
     while (true) {
-        printf("\nMENU:\n1. Insert Edge\n2. Delete Edge\n3. Search Edge\n4. Display Adjacency Matrix\n5. breadth_first\n6. depth_first\n7. Exit\nEnter your choice: ");
+        printf("\nMENU:\n1. Insert Edge\n2. Delete Edge\n3. Search Edge\n4. Display\n5. Exit\nEnter your choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
@@ -269,7 +228,7 @@ int main() {
         case 1:
             printf("Enter vertices (v1 v2) to insert edge: ");
             scanf("%d %d", &v1, &v2);
-            if (g.insert(v1, v2)) {
+            if (g.insert(v1-1, v2-1)) {
                 printf("Edge inserted successfully!\n");
             } else {
                 printf("Insertion Failed!\n");
@@ -279,7 +238,7 @@ int main() {
         case 2:
             printf("Enter vertices (v1 v2) to delete edge: ");
             scanf("%d %d", &v1, &v2);
-            if (g.remove(v1, v2)) {
+            if (g.remove(v1-1, v2-1)) {
                 printf("Edge deleted successfully!\n");
             } else {
                 printf("Deletion failed!\n");
@@ -289,7 +248,7 @@ int main() {
         case 3:
             printf("Enter vertices (v1 v2) to search edge: ");
             scanf("%d %d", &v1, &v2);
-            if (g.search(v1, v2)) {
+            if (g.search(v1-1, v2-1)) {
                 printf("Edge found in the graph.\n");
             } else {
                 printf("Edge not found in the graph.\n");
@@ -301,20 +260,6 @@ int main() {
             break;
 
         case 5:
-            printf("Enter starting vertex for breadth_first: ");
-            scanf("%d", &v1);
-            printf("breadth_first Traversal: ");
-            g.breadth_first(v1);
-            break;
-
-        case 6:
-            printf("Enter starting vertex for depth_first: ");
-            scanf("%d", &v1);
-            printf("depth_first Traversal: ");
-            g.depth_first(v1);
-            break;
-
-        case 7:
             exit(0);
 
         default:
