@@ -54,16 +54,20 @@ int hash :: insert(int value) {
 	return 1;
 }
 
-//Method to search for value in the hash table. Time complexity O(n).
-bool hash :: search(int value) {
-	int index = hash_fn(value);
-	while (table[index] != -1) {
-		if (table[index] == value) {
-			return true;
-		}
-		index = (index + 1) % SIZE; 
-	}
-	return false;
+// Method to search for value in the hash table. Time complexity O(n).
+bool hash::search(int value) {
+    int index = hash_fn(value);
+    int og_index = index;
+    while (table[index] != -1) {
+        if (table[index] == value) {
+            return true;
+        }
+        index = (index + 1) % SIZE;
+        if (index == og_index) {
+            return false;
+        }
+    }
+    return false;
 }
 
 //Method to delete value from the hash table. Time complexity O(n).
