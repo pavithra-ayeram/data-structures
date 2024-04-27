@@ -171,9 +171,6 @@ public:
     bool search(int, int);
     bool remove(int, int);
     void display();
-    void breadth_first(int);
-    void depth_first(int);
-    void df_recursive(int, bool[]);
 };
 
 bool graph::insert(int v1, int v2) {
@@ -270,57 +267,13 @@ void graph::display() {
     }
 }
 
-void graph::breadth_first(int startVertex) {
-    bool* visited = new bool[vertices]();
-    queue q; // Using your queue implementation
-
-    visited[startVertex - 1] = true;
-    q.enqueue(startVertex);
-
-    while (!q.isempty()) {
-        int current = q.dequeue();
-        printf("%d ", current);
-
-        node* temp = adj_list[current - 1];
-        while (temp != nullptr) {
-            if (!visited[temp->vertex - 1]) {
-                visited[temp->vertex - 1] = true;
-                q.enqueue(temp->vertex);
-            }
-            temp = temp->next;
-        }
-    }
-
-    delete[] visited;
-    printf("\n");
-}
-
-void graph::df_recursive(int vertex, bool visited[]) {
-    visited[vertex - 1] = true;
-    printf("%d ", vertex);
-
-    node* temp = adj_list[vertex - 1];
-    while (temp != nullptr) {
-        if (!visited[temp->vertex - 1]) {
-            df_recursive(temp->vertex, visited);
-        }
-        temp = temp->next;
-    }
-}
-
-void graph::depth_first(int startVertex) {
-    bool* visited = new bool[vertices]();
-    df_recursive(startVertex, visited);
-    printf("\n");
-    delete[] visited;
-}
 
 int main() {
     graph g;
     int choice, v1, v2;
 
     while (true) {
-        printf("\nMENU:\n1. Insert Edge\n2. Delete Edge\n3. Search Edge\n4. Display Adjacency List\n5. breadth_first Traversal\n6. depth_first Traversal\n7. Exit\nEnter your choice: ");
+        printf("\nMENU:\n1. Insert Edge\n2. Delete Edge\n3. Search Edge\n4. Display Adjacency List\n5. Exit\nEnter your choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
@@ -360,20 +313,6 @@ int main() {
             break;
 
         case 5:
-            printf("Enter starting vertex for breadth_first Traversal: ");
-            scanf("%d", &v1);
-            printf("breadth_first Traversal: ");
-            g.breadth_first(v1);
-            break;
-
-        case 6:
-            printf("Enter starting vertex for depth_first Traversal: ");
-            scanf("%d", &v1);
-            printf("depth_first Traversal: ");
-            g.depth_first(v1);
-            break;
-
-        case 7:
             exit(0);
 
         default:
