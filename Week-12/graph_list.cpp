@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #define MAX_VERTICES 5
 
-//Graph Implementation
 class graph {
 private:
     struct node {
