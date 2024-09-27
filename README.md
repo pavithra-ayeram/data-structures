@@ -1,5 +1,4 @@
 ## Disclaimer 
----
 This code comes with one small caveat: **If you use this repo... YOU OWE ME A SOFTIE!**
 
 YESSSSSSS, If my code saves your day, I’m cashing in on a soft serve. 
